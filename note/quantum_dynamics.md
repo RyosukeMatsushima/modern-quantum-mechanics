@@ -163,6 +163,73 @@ the exponential expression obviously satisfies the differential equation. The bo
 
 $$\lim_{N \to \infty} \left(1 - \frac{iH(t - t_0)}{\hbar N}\right)^N = \exp\left(-\frac{iH(t - t_0)}{\hbar}\right)$$
 
+---
+【詳しい説明】
+
+この式は、有限時間の時間発展演算子$U(t, t_0)$が、無限に細かく分割した無数の微小時間発展の積として表せることを示しています。
+
+まず、$U(t, t_0)$は
+$$
+U(t, t_0) = \exp\left(-\frac{iH(t-t_0)}{\hbar}\right)
+$$
+と書けますが、これは「$t_0$から$t$までの時間を$N$等分し、各区間で微小な時間発展を繰り返す」極限としても表現できます。
+
+具体的には、各微小区間の長さを$\Delta t = (t-t_0)/N$とすると、
+$$
+U(t, t_0) \approx \left(1 - \frac{iH\Delta t}{\hbar}\right)^N
+$$
+
+【この式の詳しい導出】
+
+時間発展演算子$U(t, t_0)$は、有限時間$(t-t_0)$を$N$個の微小区間$\Delta t = (t-t_0)/N$に分割し、各区間ごとに微小な時間発展を繰り返すことで構成できます。
+
+まず、微小時間$\Delta t$だけ進める時間発展演算子は、
+$$
+U(t_{j+1}, t_j) = 1 - \frac{iH\Delta t}{\hbar} + O((\Delta t)^2)
+$$
+となります（$O((\Delta t)^2)$は高次の微小項）。
+
+全体の時間発展は、これを$N$回繰り返す積として表せます：
+$$
+U(t, t_0) = U(t_N, t_{N-1}) U(t_{N-1}, t_{N-2}) \cdots U(t_1, t_0)
+$$
+各区間で$H$が時間に依存しない場合、すべて同じ形なので、
+$$
+U(t, t_0) \approx \left(1 - \frac{iH\Delta t}{\hbar}\right)^N
+$$
+となります。
+
+ここで$N\to\infty$、すなわち$\Delta t\to 0$の極限をとると、
+$$
+U(t, t_0) = \lim_{N\to\infty} \left(1 - \frac{iH(t-t_0)}{\hbar N}\right)^N
+$$
+となり、これは指数関数の定義
+$$
+e^A = \lim_{N\to\infty} \left(1 + \frac{A}{N}\right)^N
+$$
+に一致します。ここで$A = -\frac{iH(t-t_0)}{\hbar}$です。
+
+したがって、
+$$
+U(t, t_0) = \exp\left(-\frac{iH(t-t_0)}{\hbar}\right)
+$$
+が得られます。
+
+この導出は、時間発展が「無限に細かい微小変化の積」として指数関数的に表現できることを示しています。
+
+となります。$N\to\infty$、すなわち$\Delta t\to 0$の極限をとることで、連続的な時間発展の指数関数的な形が得られます。
+
+この極限操作は、指数関数の定義
+$$
+e^A = \lim_{N\to\infty} \left(1 + \frac{A}{N}\right)^N
+$$
+と同じ構造です。ここで$A = -\frac{iH(t-t_0)}{\hbar}$に対応します。
+
+物理的には、「微小な時間ごとに状態を少しずつ変化させる操作を無限回繰り返すことで、有限時間の発展が得られる」ことを意味します。
+
+この考え方は、時間依存ハミルトニアンや経路積分の基礎にもなっています。
+---
+
 #### Case 2: Time-Dependent Hamiltonian with Commuting H at Different Times
 
 The Hamiltonian operator $H$ is time dependent but the $H$ at different times commute, i.e., $[H(t_1), H(t_2)] = 0$. As an example, let us consider the spin-magnetic moment subjected to a magnetic field whose strength varies with time but whose direction is always unchanged. The formal solution in this case is
@@ -170,6 +237,70 @@ The Hamiltonian operator $H$ is time dependent but the $H$ at different times co
 $$U(t, t_0) = \exp\left(-\frac{i}{\hbar} \int_{t_0}^{t} dt' H(t')\right)$$
 
 This can be proved in a similar way. We simply replace $H(t - t_0)$ in the expansion by $\int_{t_0}^{t} dt' H(t')$.
+
+---
+【詳しい説明】
+
+この場合、ハミルトニアン$H(t)$は時刻によって変化しますが、異なる時刻$t_1$と$t_2$での$H(t_1)$と$H(t_2)$が可換、すなわち$[H(t_1), H(t_2)] = 0$が成り立ちます。例えば、磁場の強さが時間的に変化するが方向は一定な場合のスピン系が該当します。
+
+このとき、時間発展演算子$U(t, t_0)$の厳密解は
+$$
+U(t, t_0) = \exp\left(-\frac{i}{\hbar} \int_{t_0}^{t} dt' H(t')\right)
+$$
+と書けます。
+
+---
+【なぜ積分が現れるのか】
+
+時間依存ハミルトニアン$H(t)$の場合、時間発展を微小区間ごとに分割して考えます。
+各微小区間$[t_j, t_{j+1}]$での時間発展演算子は
+$$
+U(t_{j+1}, t_j) = 1 - \frac{i}{\hbar} H(t_j) \Delta t + O((\Delta t)^2)
+$$
+となります。
+
+全体の時間発展は、これらの積として
+$$
+U(t, t_0) = \prod_{j=0}^{N-1} \left(1 - \frac{i}{\hbar} H(t_j) \Delta t\right)
+$$
+と書けます。
+
+ここで$N\to\infty$、$\Delta t\to 0$の極限をとると、
+各$H(t_j)\Delta t$の和がリーマン和となり、
+$$
+\sum_{j=0}^{N-1} H(t_j) \Delta t \to \int_{t_0}^t H(t') dt'
+$$
+となります。
+
+指数関数の定義
+$$
+\exp(A) = \lim_{N\to\infty} \left(1 + \frac{A}{N}\right)^N
+$$
+と同じ構造なので、
+$$
+U(t, t_0) = \exp\left(-\frac{i}{\hbar} \int_{t_0}^t H(t') dt'\right)
+$$
+という形になります。
+
+つまり、時間ごとに異なる$H(t)$を「無限に細かく足し合わせる」ことで、全体の効果が積分として現れます。
+---
+
+なぜこの形になるかというと、可換性があるため、積分の中身（異なる時刻の$H$）を順序を気にせずまとめて指数関数の中に入れることができるからです。もし可換でなければ、積分順序を厳密に考慮する必要があり、より複雑なDyson系列（時間順序積分）が必要になります。
+
+実際、時間独立の場合の解
+$$
+U(t, t_0) = \exp\left(-\frac{iH(t-t_0)}{\hbar}\right)
+$$
+の$H(t-t_0)$を、時間依存の場合は$\int_{t_0}^t dt' H(t')$に置き換えるだけです。可換性があるため、テイラー展開や指数関数の性質がそのまま使えます。
+
+【具体例】
+例えば、$H(t) = \mu B(t) S_z$（$B(t)$は時間依存磁場、$S_z$はスピンz成分）なら、$S_z$は定数行列なので、異なる時刻の$H$同士が可換です。このとき、
+$$
+U(t, t_0) = \exp\left(-\frac{i}{\hbar} S_z \int_{t_0}^t \mu B(t') dt'\right)
+$$
+のように書けます。
+
+---
 
 #### Case 3: Non-Commuting H at Different Times (Dyson Series)
 
